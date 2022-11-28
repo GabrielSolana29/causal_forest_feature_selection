@@ -9,7 +9,7 @@ from scipy.special import softmax
 # based on the code from: https://econml.azurewebsites.net/_autosummary/econml.dml.CausalForestDML.html
 
 ## Function receive a data frame, the name of the outcome (target), the most important feature (Treatment)
-def causal_forest_redu(df,name_outcome,most_important_feature:str="",n_estimators:int=1000,optimize_parameters:bool=True,shap_values:bool=False,verbose:bool=False):
+def causal_forest_redu(df,name_outcome,most_important_feature:str="",n_estimators:int=1000,optimize_parameters:bool=True,shap_values:bool=False,cv:int=5,verbose:bool=False):
     tic = time.perf_counter()
     #train, test = train_test_split(df, test_size=0.2)
     feature_list = list(df.columns.values)
@@ -34,7 +34,7 @@ def causal_forest_redu(df,name_outcome,most_important_feature:str="",n_estimator
     
     #Initialize
     #c_forest = CausalForestDML(criterion='het',n_estimators=n_estimators,cv=5,model_t=LassoCV(max_iter=10000), model_y=LassoCV(max_iter=10000))        
-    c_forest = CausalForestDML(criterion='het',n_estimators=n_estimators,cv=5)  # default parameter is lasso
+    c_forest = CausalForestDML(criterion='het',n_estimators=n_estimators,cv=cv)  # default parameter is lasso
     
     if optimize_parameters == True:        
         c_forest.tune(Y, T, X=X, W=W)  # find the best parameters for the data
