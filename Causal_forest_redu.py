@@ -9,7 +9,7 @@ from scipy.special import softmax
 # based on the code from: https://econml.azurewebsites.net/_autosummary/econml.dml.CausalForestDML.html
 
 ## Function receive a data frame, the name of the outcome (target), the most important feature (Treatment)
-def causal_forest_feature_selection(df,name_outcome,most_important_feature:str="",n_estimators:int=1000,optimize_parameters:bool=True,shap_values:bool=False,verbose:bool=False):
+def causal_forest_redu(df,name_outcome,most_important_feature:str="",n_estimators:int=1000,optimize_parameters:bool=True,shap_values:bool=False,verbose:bool=False):
     tic = time.perf_counter()
     #train, test = train_test_split(df, test_size=0.2)
     feature_list = list(df.columns.values)
